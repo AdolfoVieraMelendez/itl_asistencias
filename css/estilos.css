@@ -1,0 +1,559 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+/* Importa una fuente de letra que se encuentra en la ruta del src */
+@font-face{
+    font-family: relojDigital;
+    src: url(../extras/fonts/DJB\ Get\ Digital.ttf);
+}
+
+/* CSS VARIABLES */
+:root{
+    --header-height: 3rem;
+    --nav-width: 68px;
+
+    --first-color: #2F323A;
+    --first-color-light: #a1a1a1;
+    --white-color: #F7F6FB;
+
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+
+    --z-fixed: 100;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+#horaActual-aTag{
+    text-decoration: none;
+    color: var(--first-color);
+}
+#horaActual-aTag:focus{
+    text-decoration: none;
+}
+
+main{
+    font-family: 'Poppins', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(250,111,111);
+    background: linear-gradient(90deg, rgba(250,111,111,1) 15%, rgba(70,103,249,1) 100%);
+    overflow-y: scroll;
+}
+
+#vistaGeneral-IDX{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "fechaActual fechaActual"
+    "horaActual horaActual"
+    "claveEmpleado claveEmpleado"
+    "fotoEmpleado huellaDactil"
+    "nombreEmpleado turnoActual"
+    "statusIncidencia nombreIncidencia";
+}
+
+#fotoEmpleado-IDX{
+    grid-area: fotoEmpleado;
+    display: block;
+    text-align: center;
+}
+
+#claveEmpleado-IDX{
+    grid-area: claveEmpleado;
+    display: block;
+    text-align: center;
+    position: relative;
+}
+
+#statusIncidencia-IDX{
+    grid-area: statusIncidencia;
+    display: none;
+    text-align: center;
+    font-size: 50px;
+    padding-top: 20px;
+    color: #6e6d6d;
+}
+
+#turnoActual-IDX{
+    grid-area: turnoActual;
+    display: block;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 25px;
+}
+
+#fechaActual-IDX{
+    grid-area: fechaActual;
+    display: block;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 25px;
+}
+
+#nombreEmpleado-IDX{
+    grid-area: nombreEmpleado;
+    display: block;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 25px;
+}
+
+#nombreIncidencia-IDX{
+    grid-area: nombreIncidencia;
+    display: none;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 25px;
+}
+
+#horaActual-IDX{
+    grid-area: horaActual;
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+    font-family: relojDigital, sans-serif;
+    font-size: 50px;
+}
+
+#huellaDactil-IDX{
+    grid-area: huellaDactil;
+    display: block;
+    text-align: center;
+}
+
+.item-asistencia-IDX{
+    margin: 15px 10px 15px 10px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+img.pfp{
+    border-radius: 100%;
+    max-width: 110px;
+    max-height: 110px;
+}
+
+input#clave-IDX[type="number"]{
+    width: 300px;
+    height: 50px;  
+    border: 2px solid #3498db;
+    font-size: 25px;
+    padding-left: 15px;
+    margin-top: 30px;
+    color: #3498db;
+}
+
+input#clave-IDX[type="number"]:focus{
+    outline: none;
+}
+
+/* Remueve las flechas que usa el input number */
+input#clave-IDX[type="number"]::-webkit-outer-spin-button,
+input#clave-IDX[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none;   
+    -moz-appearance: none;
+}
+
+/* Remueve las flechas que usa el input number en Firefox*/
+input#clave-IDX[type=number] {
+    -moz-appearance:textfield;
+}
+
+span#clavePH-IDX{
+    position: absolute;
+    font-size: 15px;
+    top: 40%;
+    left: 18%;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+input#clave-IDX[type=number]:focus + span#clavePH-IDX, input#clave-IDX[type=number]:valid + span#clavePH-IDX{
+    top: 10%;
+    color: #3498db;
+    padding: 4px;
+    background: #fff;
+}
+
+/* Plantilla principal del sistema */
+#sistema-container{
+    display: none;
+    font-family: var(--body-font);
+}
+
+.wrapper{
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    transition: .5s;
+}
+
+/* Header */
+.itl_header{
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--first-color);
+    z-index: var(--z-fixed);
+    transition: .5s;
+}
+
+.header__toggle{
+    color: var(--white-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.header__exit{
+    color: var(--white-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.header__exit:hover{
+    color: #e74c3c;
+}
+
+/* Sidebar */
+
+.l-navbar{
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100vh;
+    background-color: var(--first-color);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed);
+}
+
+.itl_nav{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.itl_logo, .nav__link{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .5rem 0 .5rem 1.5rem;
+    color: var(--white-color);
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.nav__link{
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 1.5rem;
+    transition: .3s;
+}
+
+.nav__link:hover{
+    color: var(--white-color);
+}
+
+.nav__icon{
+    font-size: 1.25rem;
+}
+
+.itl_show{
+    left: 0;
+}
+
+.body-pd{
+    padding-left: calc(var(--nav-width) + 1rem);
+}
+
+.itl_active{
+    color: var(--white-color);
+}
+
+.itl_active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color);
+}
+
+#itl_container{
+    transition: .5s;
+}
+
+.centrar{
+    text-align: center;
+}
+
+.textoBase{
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* Sidebar */
+
+/* Titular */
+
+.contenedor-titular{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.contenedor-titular-item{
+    background-color: var(--first-color);
+    color: var(--white-color);
+    padding-top: 5px;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-radius: 10px;
+}
+
+/* Titular */
+
+/* Menu Horarios */
+.horarios-menu{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10%;
+    grid-template-areas: 
+    "nuevo"
+    "editar";
+    margin-bottom: 10px;
+}
+
+.horarios-menu-item{
+    padding-top: 5px;
+    border-radius: 10px;
+    font-weight: bolder;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    background-color: var(--first-color);
+    cursor: pointer;
+}
+
+#horario-item-nuevo{
+    grid-area: nuevo;
+    display: block;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--first-color-light);
+}
+
+#horario-item-editar{
+    grid-area: editar;
+    display: block;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--first-color-light);
+}
+
+#horario-icon-nuevo, #horario-icon-editar{
+    font-size: 50px;
+    margin: 16px 0 16px 0;
+}
+
+#horario-item-nuevo:hover, #horario-item-editar:hover{
+    color: var(--white-color);
+}
+/* Menu Horarios */
+
+/* Menú Consultas y Reportes */
+
+.conRep-menu{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 10%;
+    grid-template-areas: 
+    "usuarios"
+    "prf"
+    "asistencias";
+    margin-bottom: 10px;
+}
+
+.conRep-menu-item{
+    padding-top: 5px;
+    border-radius: 10px;
+    font-weight: bolder;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    background-color: var(--first-color);
+    cursor: pointer;
+}
+
+#conRep-item-usuarios{
+    grid-area: usuarios;
+    display: block;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--first-color-light);
+}
+
+#conRep-item-prf{
+    grid-area: prf;
+    display: block;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--first-color-light);
+}
+
+#conRep-item-asistencias{
+    grid-area: asistencias;
+    display: block;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--first-color-light);
+}
+
+#conRep-icon-usuarios, #conRep-icon-prf, #conRep-icon-asistencias{
+    font-size: 50px;
+    margin: 16px 0 16px 0;
+}
+
+#conRep-item-usuarios:hover, #conRep-item-prf:hover, #conRep-item-asistencias:hover{
+    color: var(--white-color);
+}
+
+/* Menú Consultas y Reportes */
+
+/* Contenedor Principal */
+
+.container-principal{
+    padding: 15px 15px 5px 15px;
+    border: .1em solid #2c3e50;
+}
+
+/* Contenedor Principal */
+
+
+/* Media Queries */
+
+/* Small Devices */
+@media screen and (min-width: 768px){
+    span#clavePH-IDX{
+        left: 30%;
+    }
+
+    .wrapper{
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: calc(var(--nav-width) + 2rem);
+    }
+
+    .itl_header{
+        height: calc(var(--header-height) + 1rem);
+        padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+    }
+
+    .l-navbar{
+        left: 0;
+        padding: 1rem 1rem 0 0;
+    }
+
+    .itl_show{
+        width: calc(var(--nav-width) + 225px);
+    }
+
+    .body-pd{
+        padding-left: calc(var(--nav-width) + 250px);
+    }
+}
+
+/* Medium Devices */
+@media screen and (min-width: 992px){
+    #vistaGeneral-IDX{
+        grid-template-areas: 
+        "fechaActual horaActual"
+        "claveEmpleado claveEmpleado"
+        "fotoEmpleado huellaDactil"
+        "nombreEmpleado turnoActual"
+        "statusIncidencia nombreIncidencia";
+    }
+
+    span#clavePH-IDX{
+        left: 35%;
+    }
+
+    
+
+}
+
+/* Large Devices */
+@media screen and (min-width: 1200px){
+    span#clavePH-IDX{
+        left: 40%;
+    }
+
+}
+
+/* 1920w Devices */
+@media screen and (min-width: 1200px){
+    span#clavePH-IDX{
+        left: 42.5%;
+    }
+
+    .horarios-menu{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-gap: 20%;
+        grid-template-areas: 
+        "nuevo editar";
+    }
+    
+    .horarios-menu-item{
+        font-size: 20px;
+    }
+
+    #horario-icon-nuevo, #horario-icon-editar{
+        font-size: 60px;
+    }
+
+    .conRep-menu{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-gap: 10%;
+        grid-template-areas: 
+        "usuarios prf asistencias";
+        margin-bottom: 10px;
+    }
+    
+    .conRep-menu-item{
+        font-size: 20px;
+    }
+
+    #conRep-icon-usuarios, #conRep-icon-prf, #conRep-icon-asistencias{
+        font-size: 60px;
+    }
+}
+
+
+
+
+
+
